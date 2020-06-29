@@ -257,6 +257,7 @@ void GUI::renderAimbotWindow(bool contentOnly) noexcept
     config->aimbot[currentWeapon].minDamage = std::clamp(config->aimbot[currentWeapon].minDamage, 0, 250);
     ImGui::Checkbox("Killshot", &config->aimbot[currentWeapon].killshot);
     ImGui::Checkbox("Between shots", &config->aimbot[currentWeapon].betweenShots);
+    ImGui::Checkbox("Standalone RCS", &config->aimbot[currentWeapon].standaloneRCS);
     ImGui::Columns(1);
     if (!contentOnly)
         ImGui::End();

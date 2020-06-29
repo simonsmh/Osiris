@@ -121,6 +121,17 @@ void Aimbot::run(UserCmd* cmd) noexcept
     if (!config->aimbot[weaponIndex].enabled)
         weaponIndex = 0;
 
+    const auto aimPunch = activeWeapon->requiresRecoilControl() ? localPlayer->getAimPunch() : Vector{ };
+
+    if (config->aimbot[weaponIndex].enabled && config->aimbot[weaponIndex].standaloneRCS && !config->aimbot[weaponIndex].silent)
+    {
+        static Vector lastAimPunch{};
+        if (localPlayer->shotsFired() > 1)
+            cmd->viewangles += (lastAimPunch - aimPunch);
+        interfaces->engine->setViewAngles(cmd->viewangles);
+        lastAimPunch = aimPunch;
+    }
+    
     if (!config->aimbot[weaponIndex].betweenShots && activeWeapon->nextPrimaryAttack() > memory->globalVars->serverTime())
         return;
 
@@ -148,8 +159,6 @@ void Aimbot::run(UserCmd* cmd) noexcept
         auto bestFov = config->aimbot[weaponIndex].fov;
         Vector bestTarget{ };
         auto localPlayerEyePosition = localPlayer->getEyePosition();
-
-        const auto aimPunch = activeWeapon->requiresRecoilControl() ? localPlayer->getAimPunch() : Vector{ };
 
         for (int i = 1; i <= interfaces->engine->getMaxClients(); i++) {
             auto entity = interfaces->entityList->getEntity(i);
