@@ -481,6 +481,7 @@ static void from_json(const json& j, Config::Misc& m)
     read_number(j, "Menu key", m.menuKey);
     read<value_t::boolean>(j, "Anti AFK kick", m.antiAfkKick);
     read<value_t::boolean>(j, "Auto strafe", m.autoStrafe);
+    read<value_t::boolean>(j, "Auto strafe Key", m.autoStrafeKey);
     read<value_t::boolean>(j, "Bunny hop", m.bunnyHop);
     read<value_t::boolean>(j, "Custom clan tag", m.customClanTag);
     read<value_t::boolean>(j, "Clock tag", m.clocktag);
@@ -845,6 +846,7 @@ static void to_json(json& j, const Config::Misc& o)
     WRITE("Menu key", menuKey);
     WRITE("Anti AFK kick", antiAfkKick);
     WRITE("Auto strafe", autoStrafe);
+    WRITE("Auto strafe key", autoStrafeKey);
     WRITE("Bunny hop", bunnyHop);
     WRITE("Custom clan tag", customClanTag);
     WRITE("Clock tag", clocktag);
