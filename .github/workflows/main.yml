@@ -25,3 +25,9 @@ jobs:
     - name: Build
       shell: cmd
       run: '"%MSBUILD_PATH%\MSBuild.exe" Osiris/Osiris.vcxproj /p:Platform=Win32 /p:Configuration=Release'
+
+    # Upload artifact
+    - uses: actions/upload-artifact@v2
+      with:
+        name: Osiris.dll
+        path: ./Osiris/Release/Osiris.dll
